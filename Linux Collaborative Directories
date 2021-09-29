@@ -1,0 +1,57 @@
+The Nautilus team doesn't want its data to be accessed by any of the other groups/teams due to security reasons and 
+want their data to be strictly accessed by the sysadmin group of the team.
+
+Setup a collaborative directory /sysadmin/data on Nautilus App 3 server in Stratos Datacenter.
+
+The directory should be group owned by the group sysadmin and the group should own the files inside the directory. 
+The directory should be read/write/execute to the group owners, and others should not have any access.
+
+
+
+Logs - 
+
+stapp03 /]$ sudo chmod -R o-rwx /sysadmin/data
+[banner@stapp03 /]$ stat /sysadmin/data
+  File: ‘/sysadmin/data’
+  Size: 4096            Blocks: 8          IO Block: 4096   directory
+Device: 1100045h/17825861d      Inode: 67078111    Links: 2
+Access: (0770/drwxrwx---)  Uid: (    0/    root)   Gid: ( 1002/sysadmin)
+Access: 2021-09-29 17:41:04.953254480 +0000
+Modify: 2021-09-29 17:28:11.290468135 +0000
+Change: 2021-09-29 17:41:04.953254480 +0000
+ Birth: -
+[banner@stapp03 /]$ su jim
+Password: 
+
+su: Authentication failure
+[banner@stapp03 /]$ 
+[banner@stapp03 /]$ sudo su
+[root@stapp03 /]# passwd jim
+Changing password for user jim.
+New password: 
+BAD PASSWORD: The password is shorter than 8 characters
+Retype new password: 
+passwd: all authentication tokens updated successfully.
+[root@stapp03 /]# su jim
+[jim@stapp03 /]$ id
+uid=1002(jim) gid=1003(jim) groups=1003(jim),1002(sysadmin)
+[jim@stapp03 /]$ cd /sysadmin/data
+[jim@stapp03 data]$ ls
+[jim@stapp03 data]$ cd .
+[jim@stapp03 data]$ cd ..
+[jim@stapp03 sysadmin]$ cd ..
+[jim@stapp03 /]$ stat /sysadmin/data/
+  File: ‘/sysadmin/data/’
+  Size: 4096            Blocks: 8          IO Block: 4096   directory
+Device: 1100045h/17825861d      Inode: 67078111    Links: 2
+Access: (0770/drwxrwx---)  Uid: (    0/    root)   Gid: ( 1002/sysadmin)
+Access: 2021-09-29 17:43:35.031106195 +0000
+Modify: 2021-09-29 17:28:11.290468135 +0000
+Change: 2021-09-29 17:41:04.953254480 +0000
+ Birth: -
+[jim@stapp03 /]$ ls -ld /sysadmin/data
+drwxrwx--- 2 root sysadmin 4096 Sep 29 17:28 /sysadmin/data
+
+
+Reference - 
+https://www.youtube.com/watch?v=beOxj54LT5Q
