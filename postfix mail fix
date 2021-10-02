@@ -1,0 +1,15 @@
+Some users of the monitoring app have reported issues with xFusionCorp Industries mail server. 
+They have a mail server in Stork DC where they are using postfix mail transfer agent. 
+Postfix service seems to fail. Try to identify the root cause and fix it.
+
+Linux machine is centos , there is no locate and which command working an not in any repository. 
+so i used find command 
+find ./ | grep postfix 
+not found amy directory and files
+install postfix mail transfer agent 
+sudo yum install postfix
+after that check find command 
+find ./ | grep postfix
+
+Referenced links -https://www.tutorialspoint.com/unix_commands/postfix.htm, 
+https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-postfix-on-ubuntu-20-04
