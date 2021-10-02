@@ -1,0 +1,15 @@
+The system admins team of xFusionCorp Industries has set up a new tool on all app servers, 
+as they have a requirement to create a service user account that will be used by that tool. 
+They are finished with all apps except for App Server 2 in Stratos Datacenter.
+
+Create a user named mariyam in App Server 2 without a home directory.
+
+check the user is already created or not 
+
+id mariyam
+if no user is crated.
+then 
+
+addueer -M mariyam 
+
+-M option create a user without creating home directory.
