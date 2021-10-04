@@ -1,0 +1,35 @@
+  The system admins team of xFusionCorp Industries has set up some scripts on jump host that run on regular intervals and 
+  perform operations on all app servers in Stratos Datacenter. To make these scripts work properly 
+  we need to make sure the thor user on jump host has password-less SSH access to all app servers through their respective sudo users (i.e tony for app server 1). 
+  Based on the requirements, perform the following:
+
+
+
+Set up a password-less authentication from user thor on jump host to all app servers through their respective sudo users.
+
+First we have to check whether we have any public key or private key at jump server
+
+ls -la ~/.ssh/id_*.pub
+and we find there is no directory so we can create a keygen 
+ssh-keyen -t rsa -b 4096
+ here -t is for encryption method and -b is used for block bit or you can say that password strength. 
+
+don't put any passphrase because we don't want extra password protection. so just enter or you will create a rsa key.
+
+now again we check the key has been created or not.
+
+ls -la ~/.ssh/id_*.
+here we find one public key and second one is private key of jump server or you can say that private of our thor bhaiya.
+
+ssh-copy-id tony@stapp01
+this command ask password of stapp01 server tony user password enter it and boom you successfully copy the public key at stapp01 
+
+now we do the same to another two server or we can do the same for steve and banner bhaiya.
+
+after that we test our user sceneraio 
+
+ssh tony@stapp01
+at this time it won't ask password.
+
+Reference Link for this task-
+https://linuxize.com/post/how-to-setup-passwordless-ssh-login/
