@@ -6,3 +6,22 @@ Install the required packages of SElinux on App server 2 in Stratos Datacenter a
 it will be enabled after making some required configuration changes on this host. 
 Don't worry about rebooting the server as there is already a reboot scheduled for tonight's maintenance window. 
 Also ignore the status of SElinux command line right now; the final status after reboot should be disabled.
+
+first we check selinux is installed or not using yum package manager.
+yum info selinux*
+and we find out that there is no package of selinux.
+
+so install the package using yum package manager
+yum install selinux*
+
+after that we check selinux status 
+sestatus
+----> selinux=disabled
+
+so again we check at this setting at selinux config file 
+cat /etc/selinux/config
+here we find that selinux=enforcing.
+so we edit the file and changed to selinux=disabled.
+and our work is done.
+
+because in the task there is mention that we don't restrat the server. 
