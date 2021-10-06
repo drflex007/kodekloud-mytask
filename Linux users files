@@ -1,0 +1,45 @@
+There was some users data copied on Nautilus App Server 3 at /home/usersdata location by the Nautilus production support team in Stratos DC. 
+Later they found that they mistakenly mixed up different user data there. Now they want to filter out some user data and copy it to another location. Find the details below:
+
+
+
+On App Server 3 find all files (not directories) owned by user siva inside /home/usersdata directory and copy them all while keeping the folder structure (preserve the directories path) to /beta directory.
+
+First of all, we go to the directory /home/usersdata to see where the files are presently owned by Siva.
+there we find most of the files owned  by shiva 
+now we have to find all the files using the help of find command and copy them into directory /beta 
+
+find . -type f -user siva -exec cp {} -parents -p /beta \;
+
+Let us break down the above command and see what each option does.
+
+find - It's the command to find files and folders in Unix-like systems.
+-user - Search for files matching with same user.
+-exec cp - Tells you to execute the 'cp' command to copy files from source to destination directory.
+{} - is automatically replaced with the file name of the files found by 'find' command.
+/beta/ - Target directory to save the matching files.
+\; - Indicates that the commands to be executed are now complete, and to carry out the command again on the next match.
+
+
+Review answer 
+find /home/usersdata/ -type f -user siva |ws -l
+1383
+find /news/ -type f -user siva |ws -l
+0
+
+find /home/usersdata/ -type f -user siva -exec cp {} --parents -p /beta/ \;
+
+Remember to add "-p"
+ -p     same as --preserve=mode,ownership,timestamps
+
+ --preserve[=ATTR_LIST]
+          preserve the specified attributes (default: mode,ownership,timestamps),
+          if possible additional attributes: context, links, xattr, all
+
+find /news/ -type f -user siva |ws -l
+
+1383
+
+- If you don´t use "-p" you will copy the files but it won´t keep the attr
+
+Reference Link - https://www.youtube.com/watch?v=QiELG4L-yjQ
