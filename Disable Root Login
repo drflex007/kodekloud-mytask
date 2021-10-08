@@ -1,0 +1,24 @@
+After doing some security audits of servers, xFusionCorp Industries security team has implemented some new security policies. 
+One of them is to disable direct root login through SSH.
+
+Disable direct SSH root login on all app servers in Stratos Datacenter.
+
+In this task we have to make some chaneg in the sshd configuration file. 
+
+vi /etc/ssh/sshd_config
+
+press / button for seraching keyword in vi editor
+
+after that type Permit and hit enter
+
+and find that 
+#PermitRoot Login yes
+
+remove that # first from the line and change yes to no 
+ater that save it ESC :wq 
+
+and restart the sshd service ---> sudo systemctl restart sshd -- this will reload the sshd service.
+
+perform these step on all app servers.
+
+and your task is done.
