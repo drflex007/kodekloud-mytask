@@ -6,3 +6,18 @@ a. Provide sudo access to user john on all app servers.
 b. Make sure you have set up password-less sudo for the user.
 
 Reference Link - https://www.atlantic.net/vps-hosting/how-to-setup-passwordless-sudo-for-a-specific-user/
+
+First we have to check user is there or not 
+id yousuf 
+that will show user present or not. 
+
+we have to edit sudoers file in every server.
+cat /etc/sudoers | grep yousuf 
+vi /etc/sudoers 
+open the file entry in the last these line
+
+yousuf      ALL=(ALL)  NOPASSWD
+
+after that type command 
+su yousuf 
+this command gives login to user without password less login.
