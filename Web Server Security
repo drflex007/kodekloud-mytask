@@ -10,3 +10,36 @@ b. There is a website hosted under /var/www/html/news on App Server 1.
 It was detected that the directory /news lists all of its contents while browsing the URL. Disable the directory browser listing in Apache config.
 
 c. Also make sure to restart the Apache service after making the changes.
+
+First of all we check whether the httpd service is running.
+
+systemctl status httpd
+cat /etc/httpd/conf/httpd.conf | grep -i Tokens
+cat /etc/httpd/conf/httpd.conf | grep -i Signature
+cat /etc/httpd/conf/httpd.conf | grep Indexes
+
+Options Indexes FollowSymLinks
+
+Now we remove Indexes from this line - it will disable file indexing in the apache server.
+
+vi /etc/httpd/conf/httpd.conf 
+
+ServerSignature Off -  makes Apache to hide version info on any error pages.
+ServerTokens Prod - However, without the second line ‘ServerTokens Prod’, Apache will still include a detailed server token in HTTP response headers, 
+which reveals Apache version number.
+
+add these line last in the file httpd.conf
+
+after that httpd service.
+
+systemctl start httpd
+
+after that curl the website 
+
+curl -l http://stapp03:8080
+this commmand output not shows apache version.
+
+curl -l http://stapp03:8080/news
+
+this command output shows us the news direectory permanentaly move somewhere.
+
