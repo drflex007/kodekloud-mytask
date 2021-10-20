@@ -1,0 +1,76 @@
+The Nautilus devops team got some requirements related to some Apache config changes. 
+They need to setup some redirects for some URLs. There might be some more changes need to be done. Below you can find more details regarding that:
+
+
+
+httpd is already installed on app server 3. Configure Apache to listen on port 8086.
+
+Configure Apache to add some redirects as mentioned below:
+
+a.) Redirect http://stapp03.stratos.xfusioncorp.com:<Port>/ to http://www.stapp03.stratos.xfusioncorp.com:<Port>/ i.e non www to www. 
+This must be a permanent redirect i.e 301
+
+b.) Redirect http://www.stapp03.stratos.xfusioncorp.com:<Port>/blog/ to http://www.stapp03.stratos.xfusioncorp.com:<Port>/news/. This must be a temporary redirect i.e 302.
+
+
+
+This is virtual host problem.
+
+first we check httpd service is running or not.
+
+systemctl status httpd
+
+after that check which port httpd or apache server listening.
+cat /etc/httpd/conf/httpd.conf | grep Listen
+
+after that we check whether this website redirecting. 
+cat /etc/httpd/conf/httpd.conf | grep redirect
+
+vi /etc/httpd/conf/httpd.conf 
+
+Change the Listen port no -
+Listen 8086 
+
+For redirect the url will create main.conf, we will change port no and server name as per task
+
+cat /etc/httpd/conf.d/main.conf
+
+vi /etc/httpd/conf.d/main.conf
+
+add this lines in the main.conf
+
+<VirtualHost *:5002> 
+  ServerName http://stapp01.stratos.xfusioncorp.com:5002/
+  Redirect 301 / http://www.stapp01.stratos.xfusioncorp.com:5002/
+</VirtualHost>
+
+<VirtualHost *:5002> 
+  ServerName http://www.stapp01.stratos.xfusioncorp.com:5002/blog/
+  Redirect 302 /blog/ http://www.stapp01.stratos.xfusioncorp.com:5002/news/
+</VirtualHost>
+
+first virtual host redirect 301 code to perticular site permanentaly.
+
+second virtual host redirect 302 code to perticular site temporarly.
+
+now we start the httpd service 
+systemctl start httpd
+systemctl status httpd
+
+curl -l http://stapp03.stratos.xfusioncorp.com:8086/
+
+this will show this site moved permanetaly.
+
+curl -l http://www.stapp03.stratos.xfusioncorp.com:8086/
+
+This will show the site page.
+
+curl -l http://www.stapp03.stratos.xfusioncorp.com:8086/blog/
+
+this will show the website moved temporarly
+
+curl -l http://www.stapp03.stratos.xfusioncorp.com:<Port>/news/
+
+this will show the website address. 
+
+this will confirm the task.
