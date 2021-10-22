@@ -1,10 +1,48 @@
 We have confidential data that needs to be transferred to a remote location, so we need to encrypt that data.
 We also need to decrypt data we received from a remote location in order to understand its content.
 
-
-
 On storage server in Stratos Datacenter we have private and public keys stored /home/*_key.asc. Use those keys to perform the following actions.
-
 Encrypt /home/encrypt_me.txt to /home/encrypted_me.asc.
-
 Decrypt /home/decrypt_me.asc to /home/decrypted_me.txt. (Passphrase for decryption and encryption is kodekloud).
+
+Login to storage server.
+Go to Home Folder 
+Long list all files 
+
+Import Public and Private Keys.
+
+gpg --import public_key.asc 
+
+gpg --import private_key.asc
+
+gpg --list-keys
+
+First encrypt the file from text to asc.
+
+gpg --encrypt -r kodekloud@kodekloud.com --armor < encrypt_me.txt -o encrypted_me.asc
+
+type yes 
+
+then ll 
+
+Now decrypt the file from asc to txt
+
+gpg --decrypt decrypt_me.asc > decrypted_me.txt
+
+enter password ---> kodekloud 
+
+ll
+
+validate the task by cat files to confirm
+
+cat decrypted_me.txt
+cat decrypt_me.asc
+
+cat encrypt_me.txt
+cat encrypted_me.asc
+
+Task is completd 
+
+Tutorial - 
+https://www.youtube.com/watch?v=y2rHCaGTl8w&t=308s
+https://www.howtogeek.com/427982/how-to-encrypt-and-decrypt-files-with-gpg-on-linux/
