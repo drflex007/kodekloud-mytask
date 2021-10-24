@@ -17,5 +17,15 @@ Additionally, the respective server user (for example, tony in case of App Serve
 official_backup.sh
 #!bin/bash
 
-zip -r /backup/xfusioncorp_official.zip /var/www/html/
+zip -r /backup/xfusioncorp_official.zip /var/www/html/official
 scp /backup/xfusioncorp_official.zip clint@stbkp01:/backup/
+
+1. go to scripts folder in app server 3 and create a official_backup.sh using above command.
+2. make script it won't need password in the future. so we use a ssh-keygen and ssh-copy-id command to do that.
+   ssh-keygen -t rsa -b 4096
+   ssh-copy-id clint@stbkp01
+3. after that give excute permission to the official_backup.sh script.
+   chmod +x official_backup.sh 
+   run the script 
+   sh official_backup.sh
+   this will create the zip file of the /var/www/html/official into /backup folder and also /backup folder on to the natilus backup server
