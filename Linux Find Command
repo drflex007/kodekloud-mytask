@@ -8,3 +8,17 @@ a. On App Server 1 at location /var/www/html/news find out all files (not direct
 b. Copy all those files along with their parent directory structure to location /news on same server.
 
 c. Please make sure not to copy the entire /var/www/html/news directory content.
+
+first we count no of the files in the particular directory.
+
+find /var/www/html/news -type f -name '*js' | wc -l
+
+now we copy all those files in to the desired directory 
+
+find /var/www/html/news -type f -name '*js' -exec cp --parents {} /news \;
+
+now all the mentions files are copied there. now we word count all those files which are copies are there.
+
+run this command at /news directory 
+
+find -type f -name '*js'| wc -l
