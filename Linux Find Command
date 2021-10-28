@@ -22,3 +22,7 @@ now all the mentions files are copied there. now we word count all those files w
 run this command at /news directory 
 
 find -type f -name '*js'| wc -l
+
+reference link - https://www.youtube.com/watch?v=iEYAFeZwSHQ&t=174s
+
+https://rajuraj0706.medium.com/linux-find-command-kodekloud-task-c445844e0891
