@@ -16,3 +16,38 @@ X-Frame-Options header with value SAMEORIGIN
 X-Content-Type-Options header with value nosniff
 
 Note: You can test using curl on the given app server as LBR URL will not work for this task.
+
+First install httpd server on App Server 2
+
+sudo yum install httpd
+
+after we check server is listening on which port.
+
+using this command -
+
+cat /etc/httpd/conf/httpd.conf | grep Listen
+
+and edit the httpd.conf and change the listening port.
+
+Listen - 3002
+
+also change httpd response header at the end of file.
+
+Header set X-XSS-Protection "1; mode=block"
+Header always append X-Frame-Options SAMEORIGIN
+Header set X-Content-Type-Options nosniff 
+
+save the httpd.conf file 
+
+create the index.html file in the /var/www/html directories.
+and paste the content which are mention in the task
+
+echo 'Welcome to the xFusionCorp Industries!' >> index.html
+
+now we check the changes with the help of browsing the localhost page.
+
+curl -i http://localhost:3002
+
+it will all the details of the apache server 
+
+
