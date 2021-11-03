@@ -8,3 +8,17 @@ b. Create a yum repo named yum_local and make sure to set Repository ID to yum_l
 
 c. Install package httpd from this newly created repo.
 
+go to the yum repos directory 
+
+create a yum_local.repo file and put these lines in the repo file 
+
+[localyum]
+name = localyum
+baseurl = file:///packages/downloaded_rpms
+gpgcheck = 0
+enabled = 1
+
+after that save it and then install samba package using command yum install samba.
+
+this task is so simple but it failed at mine.
+ may be the reason is not syncing the repos directories.
