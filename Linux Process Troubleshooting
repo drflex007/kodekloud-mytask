@@ -6,3 +6,36 @@ One of the monitoring systems reported about Apache service unavailability on on
 Identify the faulty app host and fix the issue. Make sure Apache service is up and running on all app hosts. 
 They might not hosted any code yet on these servers so you need not to worry about if Apache isn't serving any pages or not, just make sure service is up and running. 
 Also, make sure Apache is running on port 6200 on all app servers.
+
+Login to the appserver 1
+
+ssh -l tony stapp01
+
+find out apache service is runnning or not.
+
+For ubuntu - systemctl status apache2
+For CentOS - systemctl status httpd
+or 
+apachectl status 
+
+Found that httpd service is not running.
+
+start the service.
+
+systemctl start httpd
+
+Found that serice are failed to start. 
+
+Look into the journal for logs.
+
+journalctl -xe | grep httpd 
+or 
+apachectl configtest
+
+Found that Error Message - 
+Apache Configuration Error AH00558: Could not reliably determine the server's fully qualified domain name
+
+for trobubleshooting go to link - https://www.digitalocean.com/community/tutorials/apache-configuration-error-ah00558-could-not-reliably-determine-the-server-s-fully-qualified-domain-name
+
+
+
