@@ -37,5 +37,54 @@ Apache Configuration Error AH00558: Could not reliably determine the server's fu
 
 for trobubleshooting go to link - https://www.digitalocean.com/community/tutorials/apache-configuration-error-ah00558-could-not-reliably-determine-the-server-s-fully-qualified-domain-name
 
+add these line in conf file - /etc/httpd/conf/httpd.conf
+
+ServerName=127.0.0.1
+
+after that we run the same command 
+
+systemctl reload httpd
+systemctl status httpd
+
+and we got the same error message so we dig into deep and find out that error message--  Apache Network Error AH00072: make_sock: could not bind to address
+
+for troubleshooting go to link - https://www.digitalocean.com/community/tutorials/apache-network-error-ah00072-make_sock-could-not-bind-to-address
+
+ss -4 -tlnp | grep 8089
+
+The flags to the ss command alter its default output in the following ways:
+
+-4 restricts ss to only display IPv4-related socket information.
+-t restricts the output to tcp sockets only.
+-l displays all listening sockets with the -4 and -t restrictions taken into account.
+-n ensures that port numbers are displayed, as opposed to protocol names like ‘httporhttps`. This is important since Apache may be attempting to bind to a non-standard port and a service name can be confusing as opposed to the actual port number.
+-p outputs information about the process that is bound to a port.
+
+now we found that two application are running on same port.
+
+apache and sendmail are running on same port 8089
+
+so we replace the port no of sendmail 
+
+goto directory - /etc/mail/sendmail.mc
+     
+vi /etc/mail/sendmail.mc
+
+/Port
+change the port no of sendmail - 8090
+
+now sendmail are going to listen on the port no 8090
+
+reload the sendmail service.
+
+service reload sendmail
+
+and now restart the apache service.
+
+systemctl restart httpd
+
+and now the httpd service is running fine.
+
+and our task has been completed.
 
 
