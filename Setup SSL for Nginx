@@ -9,3 +9,63 @@ Move them to some appropriate location and deploy the same in Nginx.
 Create an index.html file with content Welcome! under Nginx document root.
 
 For final testing try to access the App Server 3 link (either hostname or IP) from jump host using curl command. For example curl -Ik https://<app-server-ip>/.
+
+
+First we check the nginx install or not.
+yum install nginx
+this will give error nginx comes with epel repositoary 
+yum install epel-release
+after that install nginx server
+yum install nginx
+
+check the nautilus certificate and nautilus key is present in tmp directory
+
+ll /tmp/
+we found the in the tmp directory.
+
+now do some changes in the nginx.conf file.
+
+vi /etc/nginx/nginx.conf
+
+do changes in the server name.
+change the ip address.
+
+uncomment all the lines which you find useful.
+change the default directory 
+ssl_certificate "/etc/pki/CA/certs/nautilus.crt";
+ssl_certificate_key "/etc/pki/CA/private/nautilus.key";
+
+save the file.
+
+cp /tmp/nautilus.crt /etc/pki/CA/certs/
+cp /tmp/nautilus.key /etc/pki/CA/private
+
+ll /etc/pki/CA/certs/
+
+cat /etc/nginx/nginx.conf | grep root
+
+ll -lsd /usr/share/nginx/html/index.html
+
+rm /usr/share/nginx/html/index.html
+
+vi r/share/nginx/html/index.html
+Welcome!
+
+: Save the file
+
+systemctl start nginx
+systemctl status nginx
+
+run this on your app server 
+curl -Ik https://stapp02
+
+run this on jump server
+curl -Ik https://stapp02
+
+task is finished.
+
+Reference Link -
+
+https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-on-centos-7
+
+https://www.shawonruet.com/2020/08/setup-ssl-for-nginx-kodekloud.html
