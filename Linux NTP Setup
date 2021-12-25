@@ -19,3 +19,13 @@ server 1.centos.pool.ntp.org iburst
 server 2.centos.pool.ntp.org iburst
 server 3.centos.pool.ntp.org iburst
 server 3.south-america.pool.ntp.org prefer / add this line at last 
+
+now start the ntp serive to see the effect 
+
+systemctl start ntpd
+systemctl status ntpd 
+ntpstat --> this will give you the state of the ntp service 
+ 
+task completed.
+
+Refernece Link -  https://www.youtube.com/watch?v=R6tguSxzl8M&t=251s
