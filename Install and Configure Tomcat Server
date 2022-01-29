@@ -1,0 +1,35 @@
+for this task first you have to copy ROOT.war file from jump_host server to appropriate server /tmp location.
+
+Example - jump_hostserver $ scp ROOT.war tony@stapp01:/tmp
+
+after that install the tomcat server at the told server
+
+yum info tomcat
+yun install tomcat -y
+
+after that we go to the tomcat location where we have to perform all those operation
+/usr/share/tomcat/webapps
+copy ROOT.war file into the webapps folder
+
+cp /tmp/ROOT.war /usr/share/tomcat/webapps
+
+do appropriate changes in the server.xml
+likewise change the default port from port which mentioned in the questions.
+
+/usr/share/tomcat/conf # cat server.xml | grep port
+
+now change the default port no to question mentioned port no.
+
+and restart the tomcat service
+
+systemctl start tomcat
+systemctl status tomcat
+systemctl enable tomcat 
+
+do verify that your task properly working or not.
+
+curl -i ip-address of app server:question mentioned port no.
+
+curl -i 172.16.238.10:5001
+
+this will display all the html file presented in ROOT.war
